@@ -15,7 +15,7 @@ Dockerfile and Dockerimg by Boss Liu.
 ---
 To do
 
-* [ ] Anaconda
+* [ ] conda
 
 ---
 ## Images Dependencies <span id="jump1">
