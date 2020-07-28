@@ -1,5 +1,5 @@
 # ==================================================================
-# lcb-py36-cuda90-torch041
+# lcb-py36-cuda10-torch151
 # maintrainer: Chuanbin Liu (774054270@qq.com)
 # base img: liuboss/pami:liucb-py36-cuda10-pycore
 # ------------------------------------------------------------------
