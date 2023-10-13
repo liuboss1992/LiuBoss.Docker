@@ -1,0 +1,32 @@
+FROM liuboss/pami:liucb-py36-cuda111-pycore
+
+
+RUN     pip --default-timeout=1000 install torch==1.8.1+cu111 torchvision==0.9.1+cu111 torchaudio==0.8.1 -f https://download.pytorch.org/whl/torch_stable.html &&\
+        pip --default-timeout=10000 install \
+                tensorboardX \
+                timm
+
+RUN	mkdir -p ~/conda && \
+	wget https://mirrors.bfsu.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/conda/miniconda.sh && \
+	bash ~/conda/miniconda.sh -b -p /opt/conda && \
+	rm -rf ~/conda
+
+ARG USER_ID=1082
+
+RUN groupadd wheel && \
+        useradd -m --no-log-init --system  --uid ${USER_ID} liucb -g sudo && \
+        echo 'liucb ALL=(ALL) ALL' >> /etc/sudoers && \
+        groupadd -g ${USER_ID} liucb && \
+        usermod -aG wheel liucb && \
+        sed -i '19s/# a/a/g' /etc/pam.d/su
+
+
+RUN	ldconfig && \
+	apt-get -y clean && \
+	apt-get -y autoremove && \
+	rm -rf /var/lib/apt/lists/* /tmp/* ~/*
+
+EXPOSE 6006
+
+WORKDIR	/
+
